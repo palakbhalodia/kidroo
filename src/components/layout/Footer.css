@@ -1,0 +1,110 @@
+.main-footer {
+  background: #0d0d1a;
+  color: #888;
+  padding: 50px 0 30px;
+  margin-top: auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 640px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+
+.footer-brand .footer-logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
+  color: var(--yellow);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.footer-brand .footer-logo span {
+  color: var(--red);
+}
+
+.footer-brand p {
+  line-height: 1.7;
+  font-size: 0.9rem;
+}
+
+.footer-col h4 {
+  color: #fff;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.footer-col a {
+  display: block;
+  color: #888;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.footer-col a:hover {
+  color: var(--yellow);
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.social-links a:hover {
+  background: var(--yellow);
+  color: var(--dark);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  border-top: 1px solid #1e1e2e;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.payment-methods {
+  font-size: 1.5rem;
+  display: flex;
+  gap: 10px;
+}

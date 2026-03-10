@@ -1,0 +1,284 @@
+.cart-page {
+  padding: 40px 20px 80px;
+}
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-cart-icon {
+  font-size: 6rem;
+  margin-bottom: 24px;
+  background: #f0f4ff;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.cart-empty h2 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2rem;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+
+.cart-empty p {
+  color: #666;
+  margin-bottom: 32px;
+  font-size: 1.1rem;
+}
+
+.cart-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.2rem;
+  color: var(--dark);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.cart-title span {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  color: #888;
+  font-weight: 700;
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .cart-layout {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.cart-items {
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+}
+
+.cart-header {
+  display: none;
+  grid-template-columns: 3fr 1fr 1fr;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+  margin-bottom: 20px;
+  font-weight: 800;
+  color: #666;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+@media (min-width: 640px) {
+  .cart-header {
+    display: grid;
+  }
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .cart-item {
+    grid-template-columns: 3fr 1fr 1fr;
+  }
+}
+
+.cart-item-product {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cart-item-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cart-item-name {
+  font-weight: 800;
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.cart-item-name:hover {
+  color: var(--blue);
+}
+
+.cart-item-price {
+  color: #888;
+  font-weight: 700;
+}
+
+.cart-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f5f5f5;
+  padding: 6px 16px;
+  border-radius: 50px;
+  width: max-content;
+}
+
+.cart-item-quantity button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.cart-item-quantity button:hover {
+  color: var(--dark);
+}
+
+.cart-item-quantity span {
+  font-weight: 800;
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.cart-item-total {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+  color: var(--red);
+}
+
+.cart-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 16px;
+}
+
+@media (min-width: 640px) {
+  .cart-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.clear-cart-btn {
+  background: transparent;
+  border: 1px solid #ffcdd2;
+  color: var(--red);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.clear-cart-btn:hover {
+  background: #ffeaec;
+}
+
+.continue-shopping {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.cart-summary {
+  background: #fafafa;
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid #eee;
+  height: fit-content;
+  position: sticky;
+  top: 90px;
+}
+
+.cart-summary h2 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
+  color: var(--dark);
+  margin-bottom: 24px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  color: #555;
+  font-size: 1.05rem;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #ddd;
+  margin: 20px 0;
+}
+
+.summary-row.total {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
+  color: var(--dark);
+  margin-bottom: 32px;
+}
+
+.checkout-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  font-size: 1.2rem;
+}
+
+.secure-checkout {
+  text-align: center;
+  margin-top: 20px;
+  color: #888;
+  font-size: 0.85rem;
+  font-weight: 700;
+}

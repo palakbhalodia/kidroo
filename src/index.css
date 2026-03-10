@@ -1,0 +1,151 @@
+/* ======================================
+   Google Fonts
+   ====================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* ======================================
+   CSS Variables (Global Theme)
+   ====================================== */
+:root {
+  --yellow:  #FFD600;
+  --red:     #FF3D57;
+  --blue:    #1E88E5;
+  --green:   #00C853;
+  --purple:  #7C4DFF;
+  --orange:  #FF6D00;
+  --bg:      #FFF9F0;
+  --dark:    #1A1A2E;
+  --card-shadow: 0 8px 32px rgba(30,30,60,0.10);
+}
+
+/* ======================================
+   Reset & Base
+   ====================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ======================================
+   Responsive Container
+   ====================================== */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+@media (min-width: 768px)  { .container { padding: 0 40px; } }
+@media (min-width: 1024px) { .container { padding: 0 60px; } }
+
+/* ======================================
+   Global Button Styles
+   ====================================== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--yellow), var(--orange));
+  color: var(--dark);
+  border: none;
+  border-radius: 50px;
+  padding: 12px 28px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.05rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(255, 109, 0, 0.25);
+  text-decoration: none;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 109, 0, 0.35);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--dark);
+  border: 2px solid var(--dark);
+  border-radius: 50px;
+  padding: 10px 24px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-secondary:hover {
+  background: var(--dark);
+  color: #fff;
+}
+
+/* ======================================
+   Section Titles (reusable across pages)
+   ====================================== */
+.section-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2rem;
+  color: var(--dark);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+@media (min-width: 768px) { .section-title { font-size: 2.5rem; } }
+
+.section-sub {
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 36px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.section {
+  padding: 60px 0;
+}
+
+/* ======================================
+   Animations
+   ====================================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

@@ -1,0 +1,91 @@
+.categories-section {
+  padding: 60px 0;
+}
+
+.section-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.2rem;
+  color: var(--dark);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-sub {
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 36px;
+}
+
+.section-title .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .categories-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.cat-card {
+  border-radius: 20px;
+  padding: 28px 16px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  border-radius: 20px;
+}
+
+.cat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow);
+}
+
+.cat-card .icon {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.cat-card .name {
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.cat-card .count {
+  font-size: 0.78rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.cat1 .name { color: var(--orange); }
+.cat2 .name { color: var(--blue); }
+.cat3 .name { color: var(--purple); }
+.cat4 .name { color: var(--green); }
+.cat5 .name { color: var(--red); }
+.cat6 .name { color: #F9A825; }

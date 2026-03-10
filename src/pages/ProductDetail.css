@@ -1,0 +1,239 @@
+.product-page-container {
+  padding: 40px 20px 80px;
+  min-height: 60vh;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  color: var(--blue);
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 30px;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.back-btn:hover {
+  transform: translateX(-5px);
+}
+
+.product-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+@media (min-width: 768px) {
+  .product-detail-layout {
+    grid-template-columns: 1fr 1fr;
+    padding: 40px;
+  }
+}
+
+.product-detail-image {
+  height: 300px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .product-detail-image {
+    height: 400px;
+  }
+}
+
+.main-icon {
+  font-size: 8rem;
+}
+
+@media (min-width: 768px) {
+  .main-icon {
+    font-size: 10rem;
+  }
+}
+
+.product-badges {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-detail-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-age-tag {
+  display: inline-block;
+  background: #f0f4ff;
+  color: var(--blue);
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.product-detail-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2rem;
+  color: var(--dark);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .product-detail-title {
+    font-size: 2.5rem;
+  }
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.product-rating .stars {
+  color: #FFB300;
+  font-size: 1.2rem;
+}
+
+.reviews-count {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.product-detail-price {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eee;
+}
+
+.current-price {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.5rem;
+  color: var(--red);
+}
+
+.product-detail-price .old-price {
+  font-size: 1.4rem;
+  color: #bbb;
+  text-decoration: line-through;
+}
+
+.discount-tag {
+  background: #e8f5e9;
+  color: var(--green);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.product-description {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+
+.product-features {
+  margin-bottom: 32px;
+}
+
+.product-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.product-features li {
+  margin-bottom: 12px;
+  color: #444;
+  font-weight: 600;
+}
+
+.purchase-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 640px) {
+  .purchase-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 50px;
+  padding: 4px;
+}
+
+.qty-btn {
+  background: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: background 0.2s;
+}
+
+.qty-btn:hover {
+  background: #e0e0e0;
+}
+
+.qty-value {
+  width: 40px;
+  text-align: center;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+}
+
+.add-to-cart-large {
+  flex: 1;
+  font-size: 1.2rem;
+  padding: 16px 32px;
+}
+
+.delivery-info {
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.delivery-info p {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.delivery-info p:last-child {
+  margin-bottom: 0;
+}

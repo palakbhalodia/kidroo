@@ -1,0 +1,81 @@
+.deals-section {
+  background: var(--dark);
+  padding: 60px 0;
+}
+
+.deals-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .deals-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .deals-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.deal-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.25s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.deal-card:hover {
+  transform: scale(1.03);
+}
+
+.deal-img {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+
+.deal-info {
+  padding: 14px 16px;
+}
+
+.deal-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: var(--dark);
+}
+
+.deal-price {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.3rem;
+  color: var(--red);
+}
+
+.old-price {
+  font-size: 0.85rem;
+  color: #aaa;
+  font-family: 'Nunito', sans-serif;
+  text-decoration: line-through;
+}
+
+.deal-timer {
+  background: #FFF3E0;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--orange);
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
