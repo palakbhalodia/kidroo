@@ -48,6 +48,17 @@
   text-align: left;
 }
 
+.auth-error-message {
+  background: #ffeded;
+  color: var(--danger-color, #e74c3c);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid #f5c4c4;
+}
+
 .form-group {
   margin-bottom: 20px;
   position: relative;

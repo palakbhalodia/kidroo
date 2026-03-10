@@ -7,6 +7,7 @@ import './Cart.css';
 
 const Cart = () => {
   const { items, totalQuantity, totalAmount } = useSelector((state) => state.cart);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -90,7 +91,13 @@ const Cart = () => {
             <span>₹{totalAmount + (totalAmount > 499 ? 0 : 50) + Math.floor(totalAmount * 0.18)}</span>
           </div>
           
-          <button className="btn-primary checkout-btn" onClick={() => navigate('/checkout')}>
+          <button className="btn-primary checkout-btn" onClick={() => {
+            if (isAuthenticated) {
+              navigate('/checkout');
+            } else {
+              navigate('/login', { state: { from: { pathname: '/checkout' } } });
+            }
+          }}>
             Proceed to Checkout <ArrowRight size={20} />
           </button>
           

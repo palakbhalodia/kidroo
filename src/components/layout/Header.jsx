@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ShoppingCart, Search, Menu, X, User } from 'lucide-react';
+import { ShoppingCart, Search, Menu, X, User, Heart } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
   const { totalQuantity } = useSelector((state) => state.cart);
+  const { items: wishlistItems } = useSelector((state) => state.wishlist);
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchVal, setSearchVal] = useState('');
 
   const handleSearch = (e) => {
     if (e.key === 'Enter' && searchVal.trim()) {
-      navigate('/shop');
+      navigate('/shop?q=' + encodeURIComponent(searchVal.trim()));
       setMenuOpen(false);
     }
   };
@@ -20,8 +21,8 @@ const Header = () => {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/shop', label: 'Shop' },
-    { to: '/shop', label: 'Deals' },
-    { to: '/shop', label: 'About' },
+    { to: '/deals', label: 'Deals' },
+    { to: '/about', label: 'About' },
   ];
 
   return (
@@ -69,6 +70,14 @@ const Header = () => {
             <User size={22} />
           </Link>
 
+          {/* Wishlist */}
+          <Link to="/wishlist" className="icon-btn header-wishlist" title="Wishlist">
+            <Heart size={22} />
+            {wishlistItems.length > 0 && (
+              <span className="wishlist-badge">{wishlistItems.length}</span>
+            )}
+          </Link>
+
           {/* Cart */}
           <button className="cart-btn" onClick={() => navigate('/cart')}>
             <ShoppingCart size={20} />
@@ -94,6 +103,9 @@ const Header = () => {
             </Link>
           ))}
           <Link to="/account" className="mobile-nav-link" onClick={() => setMenuOpen(false)}>My Account</Link>
+          <Link to="/wishlist" className="mobile-nav-link" onClick={() => setMenuOpen(false)}>
+            Wishlist {wishlistItems.length > 0 && `(${wishlistItems.length})`}
+          </Link>
           <Link to="/cart" className="mobile-nav-link" onClick={() => setMenuOpen(false)}>
             Cart {totalQuantity > 0 && `(${totalQuantity})`}
           </Link>

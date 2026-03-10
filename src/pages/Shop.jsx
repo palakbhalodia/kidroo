@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { fetchProducts } from '../store/slices/productSlice';
 import ProductCard from '../components/product/ProductCard';
 import Loader from '../components/common/Loader';
@@ -11,6 +12,8 @@ const Shop = () => {
   const { items, status, error } = useSelector((state) => state.products);
   const [filter, setFilter] = useState('All');
   const [sort, setSort] = useState('Featured');
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('q') || '';
 
   useEffect(() => {
     if (status === 'idle') {
@@ -29,6 +32,14 @@ const Shop = () => {
     if (filter !== 'All') {
       filtered = filtered.filter(item => item.category === filter);
     }
+
+    if (query) {
+      const lowerQuery = query.toLowerCase();
+      filtered = filtered.filter(item => 
+        item.name.toLowerCase().includes(lowerQuery) || 
+        item.category.toLowerCase().includes(lowerQuery)
+      );
+    }
     
     switch (sort) {
       case 'Price: Low to High':
@@ -46,7 +57,7 @@ const Shop = () => {
     }
     
     return filtered;
-  }, [items, filter, sort]);
+  }, [items, filter, sort, query]);
 
   return (
     <div className="shop-page container">

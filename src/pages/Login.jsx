@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, register, clearAuthError } from '../store/slices/authSlice';
+import { useToast } from '../components/common/Toast';
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { error, isAuthenticated } = useSelector((state) => state.auth);
+  const { showToast } = useToast();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -18,22 +25,32 @@ const Login = () => {
     });
   };
 
+  // Clear auth errors when switching tabs
+  useEffect(() => {
+    dispatch(clearAuthError());
+  }, [isLogin, dispatch]);
+
+  // Navigate away if authenticated successfully
+  useEffect(() => {
+    if (isAuthenticated) {
+      showToast(isLogin ? "Welcome back to Kidroo!" : "Account created successfully!", "success");
+      const from = location.state?.from?.pathname || '/';
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, location, showToast, isLogin]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, this would dispatch to a Redux auth slice or call an API
     
-    // Simulate slight delay for auth
-    setTimeout(() => {
-      // Mock successful login/register
-      localStorage.setItem('kidroo_user', JSON.stringify({
-        name: isLogin ? 'Demo User' : formData.name,
-        email: formData.email
+    if (isLogin) {
+      dispatch(login({ email: formData.email, password: formData.password }));
+    } else {
+      dispatch(register({ 
+        email: formData.email, 
+        password: formData.password, 
+        name: formData.name 
       }));
-      
-      // Navigate based on user flow: if they came from cart, go to checkout, else go home
-      // For simplicity, we just navigate to Home here, but in a real app would use location.state.from
-      navigate('/');
-    }, 800);
+    }
   };
 
   return (
@@ -48,6 +65,8 @@ const Login = () => {
               : 'Create an account to get a 20% discount on your first order!'}
           </p>
         </div>
+
+        {error && <div className="auth-error-message">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           {!isLogin && (

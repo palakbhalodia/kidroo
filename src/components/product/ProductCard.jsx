@@ -1,15 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../store/slices/cartSlice';
+import { toggleWishlistItem } from '../../store/slices/wishlistSlice';
+import { useToast } from '../common/Toast';
+import { Heart } from 'lucide-react';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+  const { showToast } = useToast();
+  const { items: wishlistItems } = useSelector((state) => state.wishlist);
+  
+  const isInWishlist = wishlistItems.some(item => item.id === product.id);
 
   const handleAddToCart = (e) => {
     e.preventDefault(); // Prevent navigating if clicked inside a Link
     dispatch(addToCart(product));
+    showToast(`Added ${product.name} to cart!`, 'success');
+  };
+
+  const handleToggleWishlist = (e) => {
+    e.preventDefault();
+    dispatch(toggleWishlistItem(product));
+    if (isInWishlist) {
+      showToast(`Removed ${product.name} from wishlist.`, 'info');
+    } else {
+      showToast(`Added ${product.name} to wishlist!`, 'success');
+    }
   };
 
   return (
@@ -20,7 +38,13 @@ const ProductCard = ({ product }) => {
           {product.isHot && <span className="badge hot">🔥 Hot</span>}
           {product.isNew && <span className="badge new">✨ New</span>}
           {product.isTop && <span className="badge top">⭐ Top Pick</span>}
-          <button className="wishlist-btn" onClick={(e) => e.preventDefault()}>🤍</button>
+          <button 
+            className={`wishlist-btn ${isInWishlist ? 'active' : ''}`} 
+            onClick={handleToggleWishlist}
+            style={{ color: isInWishlist ? 'var(--danger-color, #e74c3c)' : '#999' }}
+          >
+            <Heart size={20} fill={isInWishlist ? 'currentColor' : 'none'} />
+          </button>
         </div>
       </Link>
       

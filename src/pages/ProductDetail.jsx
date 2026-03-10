@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/slices/cartSlice';
+import { toggleWishlistItem } from '../store/slices/wishlistSlice';
 import { fetchMockProductById } from '../services/mockApi';
+import { useToast } from '../components/common/Toast';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
+import { Heart } from 'lucide-react';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { showToast } = useToast();
+  const { items: wishlistItems } = useSelector((state) => state.wishlist);
   
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -61,8 +66,20 @@ const ProductDetail = () => {
          dispatch(addToCart(product));
       }
       
-      // Optional: Add a small toast notification here or navigate
-      alert(`Added ${quantity} ${product.name} to cart!`);
+      showToast(`Added ${quantity} ${product.name} to cart!`, 'success');
+    }
+  };
+
+  const isInWishlist = product ? wishlistItems.some(item => item.id === product.id) : false;
+
+  const handleToggleWishlist = () => {
+    if (product) {
+      dispatch(toggleWishlistItem(product));
+      if (isInWishlist) {
+        showToast(`Removed ${product.name} from wishlist.`, 'info');
+      } else {
+        showToast(`Added ${product.name} to wishlist!`, 'success');
+      }
     }
   };
 
@@ -133,6 +150,29 @@ const ProductDetail = () => {
             
             <button className="btn-primary add-to-cart-large" onClick={handleAddToCart}>
               🛒 Add to Cart
+            </button>
+            <button 
+              className={`btn-outline wishlist-btn-large ${isInWishlist ? 'active' : ''}`} 
+              onClick={handleToggleWishlist}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                width: '100%',
+                marginTop: '15px',
+                padding: '14px',
+                borderRadius: '50px',
+                borderColor: isInWishlist ? 'var(--danger-color, #e74c3c)' : '#ddd',
+                color: isInWishlist ? 'var(--danger-color, #e74c3c)' : '#555',
+                background: isInWishlist ? '#fff5f5' : 'transparent',
+                fontSize: '1rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              <Heart size={20} fill={isInWishlist ? 'currentColor' : 'none'} />
+              {isInWishlist ? 'Saved to Wishlist' : 'Add to Wishlist'}
             </button>
           </div>
           

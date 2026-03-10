@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../store/slices/cartSlice';
+import { addOrder } from '../store/slices/orderSlice';
 import './Checkout.css';
 
 const Checkout = () => {
   const { items, totalAmount } = useSelector((state) => state.cart);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -13,18 +15,27 @@ const Checkout = () => {
     firstName: '', lastName: '',
     email: '', phone: '',
     address: '', city: '', state: '', zip: '',
-    cardName: '', cardNumber: '', expDate: '', cvv: ''
+    cardName: '', cardNumber: '', expDate: '', cvv: '',
+    upiId: ''
   });
 
+  const [paymentMethod, setPaymentMethod] = useState('card');
   const [isProcessing, setIsProcessing] = useState(false);
 
   const shipping = totalAmount > 499 ? 0 : 50;
   const tax = Math.floor(totalAmount * 0.18);
   const finalTotal = totalAmount + shipping + tax;
 
-  // Prevent accessing checkout if cart is empty
-  if (items.length === 0) {
-    navigate('/cart');
+  // Prevent accessing checkout if cart is empty or not logged in
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: { pathname: '/checkout' } } });
+    } else if (items.length === 0 && !isProcessing) {
+      navigate('/cart');
+    }
+  }, [items.length, isProcessing, navigate, isAuthenticated]);
+
+  if (!isAuthenticated || (items.length === 0 && !isProcessing)) {
     return null;
   }
 
@@ -36,12 +47,24 @@ const Checkout = () => {
     e.preventDefault();
     setIsProcessing(true);
     
-    // Simulate order processing delay
     setTimeout(() => {
+      const orderId = 'KIDROO-' + Math.floor(Math.random() * 1000000);
+      
+      const newOrder = {
+        userEmail: user.email,
+        orderId,
+        items,
+        total: finalTotal,
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
+        status: 'Arriving Soon'
+      };
+      
+      dispatch(addOrder(newOrder));
       dispatch(clearCart());
+      
       navigate('/order-confirmed', { 
         state: { 
-          orderNumber: 'KIDROO-' + Math.floor(Math.random() * 1000000),
+          orderNumber: orderId,
           email: formData.email
         }
       });
@@ -108,36 +131,72 @@ const Checkout = () => {
             </div>
             
             <div className="payment-methods-radio">
-              <label className="payment-option active">
-                <input type="radio" name="paymentType" defaultChecked />
+              <label className={`payment-option ${paymentMethod === 'card' ? 'active' : ''}`}>
+                <input 
+                  type="radio" 
+                  name="paymentType" 
+                  checked={paymentMethod === 'card'}
+                  onChange={() => setPaymentMethod('card')}
+                />
                 <span>💳 Credit / Debit Card</span>
               </label>
-              <label className="payment-option">
-                <input type="radio" name="paymentType" />
+              <label className={`payment-option ${paymentMethod === 'upi' ? 'active' : ''}`}>
+                <input 
+                  type="radio" 
+                  name="paymentType" 
+                  checked={paymentMethod === 'upi'}
+                  onChange={() => setPaymentMethod('upi')}
+                />
+                <span>📱 UPI</span>
+              </label>
+              <label className={`payment-option ${paymentMethod === 'cod' ? 'active' : ''}`}>
+                <input 
+                  type="radio" 
+                  name="paymentType" 
+                  checked={paymentMethod === 'cod'}
+                  onChange={() => setPaymentMethod('cod')}
+                />
                 <span>💵 Cash on Delivery</span>
               </label>
             </div>
             
-            <div className="credit-card-details">
-              <div className="input-group">
-                <label>Name on Card</label>
-                <input required type="text" name="cardName" onChange={handleChange} />
-              </div>
-              <div className="input-group">
-                <label>Card Number</label>
-                <input required type="text" placeholder="XXXX XXXX XXXX XXXX" name="cardNumber" onChange={handleChange} />
-              </div>
-              <div className="input-row">
+            {paymentMethod === 'card' && (
+              <div className="credit-card-details">
                 <div className="input-group">
-                  <label>Expiry Date</label>
-                  <input required type="text" placeholder="MM/YY" name="expDate" onChange={handleChange} />
+                  <label>Name on Card</label>
+                  <input required type="text" name="cardName" onChange={handleChange} />
                 </div>
                 <div className="input-group">
-                  <label>CVV</label>
-                  <input required type="text" placeholder="XXX" name="cvv" onChange={handleChange} />
+                  <label>Card Number</label>
+                  <input required type="text" placeholder="XXXX XXXX XXXX XXXX" name="cardNumber" onChange={handleChange} />
+                </div>
+                <div className="input-row">
+                  <div className="input-group">
+                    <label>Expiry Date</label>
+                    <input required type="text" placeholder="MM/YY" name="expDate" onChange={handleChange} />
+                  </div>
+                  <div className="input-group">
+                    <label>CVV</label>
+                    <input required type="text" placeholder="XXX" name="cvv" onChange={handleChange} />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+
+            {paymentMethod === 'upi' && (
+              <div className="upi-details">
+                <div className="input-group">
+                  <label>UPI ID</label>
+                  <input required type="text" placeholder="example@upi" name="upiId" onChange={handleChange} />
+                </div>
+              </div>
+            )}
+
+            {paymentMethod === 'cod' && (
+              <div className="cod-details">
+                <p>Pay with cash when your toys arrive!</p>
+              </div>
+            )}
           </div>
 
           <button type="submit" className="btn-primary place-order-btn" disabled={isProcessing}>

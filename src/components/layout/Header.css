@@ -97,7 +97,7 @@
 }
 @media (min-width: 1024px) { .search-bar { width: 220px; } }
 
-/* ── Icon Button (Account) ── */
+/* ── Icon Button (Account, Wishlist) ── */
 .icon-btn {
   display: none;
   width: 40px;
@@ -109,9 +109,27 @@
   color: var(--dark);
   text-decoration: none;
   transition: background 0.2s;
+  position: relative;
 }
 @media (min-width: 640px) { .icon-btn { display: flex; } }
 .icon-btn:hover { background: var(--yellow); }
+
+.wishlist-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--danger-color, #e74c3c);
+  color: #fff;
+  font-size: 0.7rem;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+}
 
 /* ── Cart Button ── */
 .cart-btn {

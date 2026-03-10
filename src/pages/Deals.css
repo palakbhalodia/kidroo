@@ -1,0 +1,148 @@
+.deals-page {
+  padding: 40px 20px;
+}
+
+.deals-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.deals-header h1 {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.deals-header .title-icon {
+  color: var(--primary-color);
+}
+
+.deals-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.deals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.deal-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.deal-badge {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  background: var(--danger-color, #e74c3c);
+  color: white;
+  padding: 5px 15px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 0 20px 20px 0;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.wishlist-btn:hover {
+  transform: scale(1.1);
+  color: var(--danger-color, #e74c3c);
+}
+
+.wishlist-btn.active {
+  color: var(--danger-color, #e74c3c);
+}
+
+.pc-original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+
+.pc-img {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+
+.pc-details {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-category {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.pc-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark, #333);
+  margin-bottom: 10px;
+}
+
+.pc-rating {
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+.pc-rating span {
+  color: #888;
+}
+
+.pc-price-wrap {
+  margin-bottom: 15px;
+}
+
+.pc-price {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary-color, #e74c3c);
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .deals-header h1 {
+    font-size: 2rem;
+  }
+}
