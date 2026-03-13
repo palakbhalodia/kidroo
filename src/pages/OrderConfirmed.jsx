@@ -10,7 +10,7 @@ const OrderConfirmed = () => {
   // Protect route if accessed without placing an order
   if (!orderData) {
     return <Navigate to="/" />;
-  }
+  } 
 
   return (
     <div className="order-confirmed-page container">
@@ -20,7 +20,7 @@ const OrderConfirmed = () => {
         <p className="oc-message">
           Your order <strong>{orderData.orderNumber}</strong> has been successfully placed.<br/>
           We've sent a confirmation email to <strong>{orderData.email}</strong>.
-        </p>
+        </p> 
 
         <div className="oc-next-steps">
           <h3>What happens next?</h3>

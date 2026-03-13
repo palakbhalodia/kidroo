@@ -55,6 +55,7 @@ const Cart = () => {
               <div className="cart-item-total">
                 ₹{item.totalPrice}
               </div>
+              
             </div>
           ))}
 

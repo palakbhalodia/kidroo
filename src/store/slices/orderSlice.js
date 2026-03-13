@@ -12,6 +12,7 @@ const loadOrdersFromStorage = () => {
 const initialState = {
   allOrders: loadOrdersFromStorage(),
 };
+ 
 
 const orderSlice = createSlice({
   name: 'orders',
@@ -25,6 +26,8 @@ const orderSlice = createSlice({
   },
 });
 
+
+ 
 export const { addOrder } = orderSlice.actions;
 
 // Selector to get orders for a specific user

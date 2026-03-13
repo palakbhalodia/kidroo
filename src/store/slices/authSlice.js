@@ -12,14 +12,26 @@ const loadActiveSession = () => {
 
 // Get the mock "database" of registered users
 const loadUsersDb = () => {
+  const defaultAdmin = { email: 'admin@kidroo.com', password: 'admin', name: 'Kidroo Admin', isAdmin: true };
   try {
     const db = localStorage.getItem('kidroo_users_db');
-    return db ? JSON.parse(db) : [];
+    if (db) {
+      const parsedDb = JSON.parse(db);
+      // Ensure admin exists in DB
+      if (!parsedDb.find(u => u.isAdmin)) {
+        parsedDb.push(defaultAdmin);
+        localStorage.setItem('kidroo_users_db', JSON.stringify(parsedDb));
+      }
+      return parsedDb;
+    }
+    const initDb = [defaultAdmin];
+    localStorage.setItem('kidroo_users_db', JSON.stringify(initDb));
+    return initDb;
   } catch {
-    return [];
+    return [defaultAdmin];
   }
 };
-
+                
 const initialState = {
   user: loadActiveSession(),
   isAuthenticated: !!localStorage.getItem('kidroo_active_session'),
@@ -66,7 +78,7 @@ const authSlice = createSlice({
       }
       
       // Login successful
-      state.user = { email: user.email, name: user.name };
+      state.user = { email: user.email, name: user.name, isAdmin: user.isAdmin || false };
       state.isAuthenticated = true;
       state.error = null;
       localStorage.setItem('kidroo_active_session', JSON.stringify(state.user));

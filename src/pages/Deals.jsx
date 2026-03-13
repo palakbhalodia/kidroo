@@ -32,7 +32,7 @@ const Deals = () => {
     <div className="deals-page container">
       <div className="deals-header">
         <h1><Tag className="title-icon" /> Super Saver Deals</h1>
-        <p>Grab the best toys at unbeatable prices before they're gone!</p>
+        <p>Grab the best toys at unbeatable prices before they're gone!</p> 
       </div>
 
       <div className="deals-grid">

@@ -17,9 +17,8 @@ const Categories = () => {
         <div className="section-title">
           <span className="dot" style={{ background: 'var(--orange)' }}></span>
           Shop by Category
-        </div>
-        <p className="section-sub">Find the perfect toy for every type of play</p>
-        
+        </div> 
+        <p className="section-sub">Find the perfect toy for every type of play</p>        
         <div className="categories-grid">
           {CATEGORY_DATA.map((cat) => (
             <div key={cat.id} className={`cat-card ${cat.colorClass}`} style={{ backgroundColor: cat.bgColor }}>

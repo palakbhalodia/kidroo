@@ -5,6 +5,7 @@ import Hero from '../components/home/Hero';
 import Categories from '../components/home/Categories';
 import PromoBanners from '../components/home/PromoBanners';
 import Deals from '../components/home/Deals';
+import PhotoGallery from '../components/home/PhotoGallery';
 import ProductCard from '../components/product/ProductCard';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
@@ -25,6 +26,7 @@ const Home = () => {
   return (
     <div className="home-page">
       <Hero />
+      <PhotoGallery />
       <Categories />
 
       <section className="section trending-section">

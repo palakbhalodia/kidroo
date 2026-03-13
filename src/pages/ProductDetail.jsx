@@ -3,11 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/slices/cartSlice';
 import { toggleWishlistItem } from '../store/slices/wishlistSlice';
+import { fetchProducts } from '../store/slices/productSlice';
 import { fetchMockProductById } from '../services/mockApi';
 import { useToast } from '../components/common/Toast';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
-import { Heart } from 'lucide-react';
+import ProductCard from '../components/product/ProductCard';
+import { Heart, Download } from 'lucide-react';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -16,11 +18,13 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const { showToast } = useToast();
   const { items: wishlistItems } = useSelector((state) => state.wishlist);
+  const { items: allProducts, status: productsStatus } = useSelector((state) => state.products);
   
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -44,10 +48,14 @@ const ProductDetail = () => {
 
     loadProduct();
 
+    if (productsStatus === 'idle') {
+      dispatch(fetchProducts());
+    }
+
     return () => {
       isMounted = false;
     };
-  }, [id]);
+  }, [id, productsStatus, dispatch]);
 
   const handleAddToCart = () => {
     if (product) {
@@ -91,17 +99,51 @@ const ProductDetail = () => {
   if (error) return <div className="product-page-container"><ErrorMessage message={error} onRetry={() => window.location.reload()} /></div>;
   if (!product) return null;
 
+  const mockGallery = [
+    'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&w=600&q=80',
+    'https://images.unsplash.com/photo-1566589345758-1f19f2ba955a?ixlib=rb-4.0.3&w=600&q=80',
+    'https://images.unsplash.com/photo-1516627145497-ae6968895b74?ixlib=rb-4.0.3&w=600&q=80'
+  ];
+
+  const relatedProducts = allProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+
   return (
     <div className="product-page-container container">
       <button className="back-btn" onClick={handleBack}>← Back to Shop</button>
       
       <div className="product-detail-layout">
-        <div className="product-detail-image" style={{ background: product.bgTheme }}>
-          <div className="main-icon">{product.icon}</div>
-          <div className="product-badges">
-            {product.isHot && <span className="badge hot">🔥 Hot</span>}
-            {product.isNew && <span className="badge new">✨ New</span>}
-            {product.isTop && <span className="badge top">⭐ Top Pick</span>}
+        <div className="product-gallery">
+          <div className="main-image">
+            {activeImage === 0 ? (
+              <div className="product-detail-hero" style={{ background: product.bgTheme }}>
+                <div className="main-icon">{product.icon}</div>
+              </div>
+            ) : (
+              <img src={mockGallery[activeImage - 1]} alt={product.name} />
+            )}
+            <div className="product-badges">
+              {product.isHot && <span className="badge hot">🔥 Hot</span>}
+              {product.isNew && <span className="badge new">✨ New</span>}
+              {product.isTop && <span className="badge top">⭐ Top Pick</span>}
+            </div>
+          </div>
+          <div className="thumbnail-list">
+            <div 
+              className={`thumbnail ${activeImage === 0 ? 'active' : ''}`} 
+              onClick={() => setActiveImage(0)} 
+              style={{ background: product.bgTheme }}
+            >
+              <span className="thumb-icon">{product.icon}</span>
+            </div>
+            {mockGallery.map((img, idx) => (
+              <div 
+                key={idx} 
+                className={`thumbnail ${activeImage === idx + 1 ? 'active' : ''}`} 
+                onClick={() => setActiveImage(idx + 1)}
+              >
+                <img src={img} alt="Thumbnail view" />
+              </div>
+            ))}
           </div>
         </div>
 
@@ -180,8 +222,30 @@ const ProductDetail = () => {
             <p>🚚 <strong>Free Delivery</strong> on orders over ₹499</p>
             <p>🛡️ <strong>30-Day Returns</strong> easy and hassle-free</p>
           </div>
+
+          <div className="brochure-section">
+            <button 
+              className="btn-outline brochure-btn" 
+              onClick={() => alert(`Downloading brochure for ${product.name}...`)}
+            >
+              <Download size={20} /> Download Product Brochure
+            </button>
+          </div>
         </div>
       </div>
+
+      {relatedProducts.length > 0 && (
+        <div className="related-products-section">
+          <div className="section-title">
+            <span className="dot" style={{ background: 'var(--blue)' }}></span>
+            You Might Also Like
+          </div>
+          <p className="section-sub">Similar toys in {product.category}</p>
+          <div className="products-grid">
+            {relatedProducts.map(p => <ProductCard key={p.id} product={p} />)}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

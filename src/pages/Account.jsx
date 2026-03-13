@@ -24,6 +24,7 @@ const Account = () => {
     dispatch(logout());
     navigate('/login');
   };
+ 
 
   if (!isAuthenticated || !user) return null;
 
@@ -50,13 +51,13 @@ const Account = () => {
         <div className="account-content">
           <div className="content-section">
             <h2>Recent Orders</h2>
-            
+             
             {userOrders.length === 0 ? (
               <div className="empty-orders-state">
                 <Package size={48} style={{ color: '#ccc', marginBottom: '16px' }} />
                 <h3>No past orders</h3>
                 <p>You haven't placed any orders yet.</p>
-                <Link to="/shop" className="btn-primary" style={{marginTop: '16px'}}>Start Shopping</Link>
+                 <Link to="/shop" className="btn-primary" style={{marginTop: '16px'}}>Start Shopping</Link>
               </div>
             ) : (
               <div className="orders-list">
@@ -74,12 +75,12 @@ const Account = () => {
                       <div className="oh-right">
                         <span className="oh-label">Order #</span>
                         <div className="oh-value">{order.orderId}</div>
-                      </div>
+                      </div> 
                     </div>
                     
                     <div className="order-history-body">
                       <div className="oh-status tracking">
-                        <span className="status-dot"></span> {order.status}
+                        <span className="status-dobb t"></span> {order.status}
                       </div>
                       
                       <div className="oh-items">
@@ -99,6 +100,7 @@ const Account = () => {
                         <button className="btn-secondary oh-btn">Track Package</button>
                         <button className="btn-secondary oh-btn">View Invoice</button>
                       </div>
+
                     </div>
                   </div>
                 ))}

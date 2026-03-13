@@ -108,3 +108,23 @@
   display: flex;
   gap: 10px;
 }
+
+.support-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.95rem;
+  color: var(--yellow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.support-badge:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}

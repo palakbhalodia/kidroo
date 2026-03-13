@@ -47,6 +47,9 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} Kidroo. All rights reserved.</p>
+          <div className="support-badge" title="Enjoy 1 year of free bug fixes and technical support">
+            <span>🛡️</span> 1 Year Free Technical Support
+          </div>
           <div className="payment-methods">
             💳 🏦 💵
           </div>

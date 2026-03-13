@@ -8,8 +8,8 @@ const Hero = () => {
       <div className="hero-text">
         <div className="hero-badge">✨ New Arrivals Just Dropped!</div>
         <h1>
-          Where Every Day<br />
-          Is a <span className="highlight">Playday!</span>
+          Kidroo Toy Store<br />
+          <span className="highlight">Where Fun Begins!</span>
         </h1>
         <p>
           Discover thousands of toys for every age — from toddlers to teens.<br />
